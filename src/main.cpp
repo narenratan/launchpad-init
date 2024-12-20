@@ -71,10 +71,12 @@ int main()
     // On macOS, observation can *only* be done in the main thread
     // with an active CFRunLoop.
     CFRunLoopRun();
+#elif defined(_WIN32) || defined(WIN32)
+    // Windows
+    system("pause");
 #else
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    // Linux
+    pause();
 #endif
     return 0;
 }

@@ -14,6 +14,19 @@ Uses the hotplug support in
 Builds for Windows, Mac, and Linux are available on the [releases
 page](https://github.com/narenratan/launchpad-init/releases).
 
+Starting automatically
+----------------------
+For me it's convenient to have launchpad-init start automatically. On Linux you
+can do this by copying the launchpad-init executable into `~/.local/bin/`,
+copying the `launchpad-init.service` file in this repo into
+`~/.config/systemd/user/`, and running
+
+```console
+$ systemctl --user enable launchpad-init.service
+$ systemctl --user start launchpad-init.service
+```
+After doing this once, launchpad-init will start automatically when you login.
+
 Build
 -----
 ```console

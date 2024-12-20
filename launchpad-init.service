@@ -1,0 +1,9 @@
+[Unit]
+Description=Run launchpad-init
+
+[Service]
+ExecStart=%h/.local/bin/launchpad-init
+Type=simple
+
+[Install]
+WantedBy=default.target
