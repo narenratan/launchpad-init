@@ -1,0 +1,44 @@
+name: build
+run-name: build
+on: [push]
+jobs:
+  build:
+    name: build ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            executable: Release/launchpad-init.exe
+          - os: macos-latest
+            executable: launchpad-init
+          - os: ubuntu-22.04
+            executable: launchpad-init
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+            submodules: 'true'
+      # - name: Import code signing certificates
+      #   if: matrix.os == 'macos-latest'
+      #   uses: apple-actions/import-codesign-certs@v2
+      #   with:
+      #       p12-file-base64: ${{ secrets.DEV_ID_APP_CERT }}
+      #       p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
+      - name: Build
+        run: |
+            cmake -B build -DCMAKE_BUILD_TYPE=Release
+            cmake --build build --config Release
+            ls build
+      # - name: Code signing and notarization
+      #   if: matrix.os == 'macos-latest'
+      #   run: |
+      #       codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v build/launchpad-init --deep --strict --timestamp --options runtime
+      #       cp build/launchpad-init .
+      #       zip launchpad-init.zip launchpad-init
+      #       xcrun notarytool submit launchpad-init.zip --apple-id ${{ secrets.NOTARIZATION_USERNAME }} --team-id ${{ secrets.TEAM_ID }} --password ${{ secrets.NOTARIZATION_PASSWORD }} --wait
+      - uses: actions/upload-artifact@v4
+        with:
+            name: launchpad-init_${{ matrix.os }}_${{ github.sha }}
+            path: build/${{ matrix.executable }}
