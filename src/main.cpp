@@ -21,6 +21,8 @@
 
 #if defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>
+#elif defined(_WIN32) || defined(WIN32)
+#include <windows.h>
 #endif
 
 #include <libremidi/libremidi.hpp>
@@ -73,10 +75,17 @@ int main()
     CFRunLoopRun();
 #elif defined(_WIN32) || defined(WIN32)
     // Windows
-    system("pause");
+    Sleep(INFINITE);
 #else
     // Linux
     pause();
 #endif
     return 0;
 }
+
+#if defined(_WIN32) || defined(WIN32)
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
+{
+    return main();
+}
+#endif
