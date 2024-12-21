@@ -32,6 +32,9 @@ On Mac, you can do this by copying the launchpad-init executable into
 `~/Library/LaunchAgents/`. Now launchpad-init will start automatically when you
 login.
 
+On Windows, you can do this by creating a shortcut to the launchpad-init
+executable in `%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`.
+
 Build
 -----
 ```console
