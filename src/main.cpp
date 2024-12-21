@@ -52,7 +52,7 @@ int main()
         libremidi::observer_configuration cbs;
         cbs.output_added = [=](const libremidi::output_port &p) {
             std::cout << api_name << " : output added " << p << "\n";
-            if (p.port_name.find("LPX MIDI In") != std::string::npos)
+            if (p.port_name.find("LPX MIDI") != std::string::npos)
             {
                 std::cout << "Sending programmer mode sysex to " << p.port_name << std::endl;
                 libremidi::midi_out midi;
