@@ -27,6 +27,11 @@ $ systemctl --user start launchpad-init.service
 ```
 After doing this once, launchpad-init will start automatically when you login.
 
+On Mac, you can do this by copying the launchpad-init executable into
+`~/.local/bin/` and copying the `launchpad-init.plist` file in this repo into
+`~/Library/LaunchAgents/`. Now launchpad-init will start automatically when you
+login.
+
 Build
 -----
 ```console
